@@ -23,24 +23,18 @@ int main() {
 
 void insertion_sort(int arr[], int arr_size) {
 
-	int i, j, tmp, pos = 0;
+	int i, j, tmp;
 
-	for (i = 1; i < arr_size ; i++) {
+	for (i = 1; i < arr_size; i++) {
 
 		tmp = arr[i];
 
-		for (j = i-1; j >= 0 ; j--) {
-
-			if (arr[j] > tmp) {
+		for (j = i - 1; j >= 0 && arr[j] > tmp; j--) {
 
 				arr[j + 1] = arr[j];
-				pos++;
-			}
 		}
 
-		arr[i - pos] = tmp;
-
-		pos = 0;
+		arr[j+1] = tmp;
 
 	}
 }
