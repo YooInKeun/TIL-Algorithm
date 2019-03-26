@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #define MAX_SIZE 10
@@ -54,7 +54,7 @@ char Pop() {
 
 	else {
 
-		printf("Top -> %d\n", myStack[top]);
+		printf("Top -> %c\n", myStack[top]);
 		printf("\n");
 
 		tmp = myStack[top];
@@ -86,7 +86,7 @@ void printStack() {
 
 	for (int i = top; i >= 0; i--) {
 
-		printf("%d\n", myStack[i]);
+		printf("%c\n", myStack[i]);
 	}
 
 	printf("\n");
@@ -95,52 +95,64 @@ void printStack() {
 void cal_postfix(char* myfix) {
 
 	char result[100];
-	int j = 0;
+	int i, j = 0;
+	
+	for (i = 0; myfix[i] != '\0'; i++) {
 
-	/*
-	for (int i = 0; myfix[i] != '\0'; i++) {
+		if (myfix[i] == '+' || myfix[i] == '-' || myfix[i] == '*' || myfix[i] == '/') {
+			
+			if (top > -1) {
+				
+				if (priority(myfix[i]) <= priority(myStack[top])) {
 
-		if (myfix[i] == '+' || myfix[i] == '-' || myfix[i] == '*' || myfix[i] == '/' || myfix[i] == '(' || myfix[i] == ')') {
-
-			if (priority(myfix[i]) >= priority(myStack[top])) {
-
-				result[j] = Pop();
-				j++;
+					result[j] = Pop();
+					j++;
+				}
 			}
-
+	
 			else {
 
 				Push(myfix[i]);
 			}
-
 		}
 
 		else {
-
 			result[j] = myfix[i];
 			j++;
 		}
-
-		printf("결과 : %s\n", result);
 	}
 
-	*/
+	while (top != -1) {
 
+		result[j] = Pop();
+		j++;
+	}
+
+	printStack();
+
+	for (int k = 0; k < j ; k++) {
+
+		printf("%c", result[k]);
+	}
+
+	printStack();
+
+	printf("\n");
 }
 
 int priority(char x) {
 
-	if (x == '(' || x == ')') {
+	if (x == '*' || x == '/') {
 
 		return 3;
 	}
 
-	else if (x == '*' || x == '/') {
+	else if (x == '+' || x == '-') {
 
 		return 2;
 	}
 
-	else if (x == '+' || x == '-') {
+	else if (x == '(' || x == ')') {
 
 		return 1;
 	}
