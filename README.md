@@ -1,6 +1,6 @@
 # TIL-Algorithm
 
-Algorithm Study
+Algorithm Study with C
 --------------------------------------------------
 
 ### 커밋 내용
