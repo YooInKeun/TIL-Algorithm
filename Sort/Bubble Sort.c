@@ -21,13 +21,13 @@ int main() {
 	return 0;
 }
 
-void bubble_sort(int arr[], int arr_size) {
+void bubble_sort(int arr[], int arr_size) { // 좀 더 효율적인 버블 정렬(Loop count 감소)
 
 	int i, j, tmp, cnt = 0;
 	
-	for(i = 0; i < arr_size-1; i++) {
+	for(i = arr_size - 1; i >= 0; i--) {
 
-		for (j = 0; j < arr_size - 1; j++) {
+		for (j = 0; j < i; j++) {
 
 			if (arr[j] > arr[j + 1]) {
 
