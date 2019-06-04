@@ -1,7 +1,7 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 
-#define EDGE_MAX_SIZE 7 // edge의 개수
-#define VERTEX_MAX_SIZE 5 // vertex의 개수
+#define EDGE_MAX_SIZE 24 // edge의 개수
+#define VERTEX_MAX_SIZE 16 // vertex의 개수
 
 typedef struct edge{ // edge 구조체 정의
 
@@ -19,7 +19,7 @@ int parent[EDGE_MAX_SIZE +1]; // union-find 알고리즘에 사용할 parent 배
 int mstGraph[VERTEX_MAX_SIZE][VERTEX_MAX_SIZE] = {0, }; // mst graph는 adjacency matrix로 표현
 
 edge createEdge(int v1, int v2, int weight); // vertex 및 edge(weight) 생성
-void descendingSort(edge* arr); // edgeList를 오름차순으로 정렬하기 위해 필요(bubble sort)
+void ascendingSort(edge* arr); // edgeList를 오름차순으로 정렬하기 위해 필요(bubble sort)
 
 // union-find algorithm
 
@@ -35,21 +35,38 @@ int main() {
 
 	struct edge edgeList[EDGE_MAX_SIZE]; // edge 구조체 배열
 
-	edgeList[0] = createEdge(1, 2, 4);
-	edgeList[1] = createEdge(1, 3, 2);
-	edgeList[2] = createEdge(1, 4, 5);
-	edgeList[3] = createEdge(2, 4, 7);
-	edgeList[4] = createEdge(2, 3, 10);
-	edgeList[5] = createEdge(2, 5, 8);
-	edgeList[6] = createEdge(3, 5, 1);
+	edgeList[0] = createEdge(1, 2, 3);
+	edgeList[1] = createEdge(1, 5, 2);
+	edgeList[2] = createEdge(2, 3, 1);
+	edgeList[3] = createEdge(2, 6, 5);
+	edgeList[4] = createEdge(3, 4, 4);
+	edgeList[5] = createEdge(3, 7, 1);
+	edgeList[6] = createEdge(4, 8, 6);
+	edgeList[7] = createEdge(5, 6, 1);
+	edgeList[8] = createEdge(5, 9, 3);
+	edgeList[9] = createEdge(6, 7, 5);
+	edgeList[10] = createEdge(6, 10, 4);
+	edgeList[11] = createEdge(7, 8, 8);
+	edgeList[12] = createEdge(7, 11, 2);
+	edgeList[13] = createEdge(8, 12, 6);
+	edgeList[14] = createEdge(9, 10, 2);
+	edgeList[15] = createEdge(9, 13, 2);
+	edgeList[16] = createEdge(10, 11, 4);
+	edgeList[17] = createEdge(10, 14, 6);
+	edgeList[18] = createEdge(11, 12, 6);
+	edgeList[19] = createEdge(11, 15, 4);
+	edgeList[20] = createEdge(12, 16, 4);
+	edgeList[21] = createEdge(13, 14, 3);
+	edgeList[22] = createEdge(14, 15, 5);
+	edgeList[23] = createEdge(15, 16, 7);
 
 	initParent(); // 부모 parent 초기화
 
-	descendingSort(edgeList); // edgeList를 오름차순으로 정렬
+	ascendingSort(edgeList); // edgeList를 오름차순으로 정렬
 
-	printf("최소 비용 : %d\n\n", calculateMst(edgeList));
+	printf("최소 비용 : %d\n\n", calculateMst(edgeList)); // mst 계산
 
-	printMstGraph();
+	printMstGraph(); // mst graph 출력
 
 	return 0;
 }
@@ -65,7 +82,7 @@ edge createEdge(int v1, int v2, int weight) { // vertex 및 edge(weight) 생성
 	return newEdge;
 }
 
-void descendingSort(edge* arr) { // mstGraph는 adjacency matrix로 표현
+void ascendingSort(edge* arr) { // edgeList를 오름차순으로 정렬하기 위해 필요(bubble sort)
 
 	struct edge tmpEdge;
 
@@ -73,7 +90,7 @@ void descendingSort(edge* arr) { // mstGraph는 adjacency matrix로 표현
 
 		for (int j = 0; j < EDGE_MAX_SIZE -1; j++) {
 
-			if (arr[j].weight < arr[j + 1].weight) {
+			if (arr[j].weight > arr[j + 1].weight) {
 
 				tmpEdge = arr[j];
 				arr[j] = arr[j + 1];
@@ -150,7 +167,7 @@ int calculateMst(edge* arr) { // minimum spanning tree 구하기
 	return mst;
 }
 
-void printMstGraph() {
+void printMstGraph() { // mst graph 출력
 
 	for (int i = 0; i < VERTEX_MAX_SIZE; i++) {
 
