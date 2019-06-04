@@ -159,8 +159,8 @@ int calculateMst(edge* arr) { // minimum spanning tree 구하기
 			mst += arr[i].weight; // mst 값 갱신
 			makeUnion(arr[i].v1, arr[i].v2); // 부모 합치기
 
-			mstGraph[arr[i].v1][arr[i].v2] = arr[i].weight; // mst graph에 표시
-			mstGraph[arr[i].v2][arr[i].v1] = arr[i].weight; // mst graph에 표시
+			mstGraph[arr[i].v1-1][arr[i].v2-1] = arr[i].weight; // mst graph에 표시
+			mstGraph[arr[i].v2-1][arr[i].v1-1] = arr[i].weight; // mst graph에 표시
 		}
 	}
 
