@@ -1,23 +1,23 @@
 #include <stdio.h>
 
-#define MAX_SIZE 16 // ÃÖ´ë vertex °³¼ö 16°³
+#define MAX_SIZE 16 // ìµœëŒ€ vertex ê°œìˆ˜ 16ê°œ
 
-typedef int boolean; // c¿¡¼­´Â bool Å¸ÀÔÀÌ ¾ø¾î¼­ typedef·Î Á÷Á¢ ±¸Çö
+typedef int boolean; // cì—ì„œëŠ” bool íƒ€ì…ì´ ì—†ì–´ì„œ typedefë¡œ ì§ì ‘ êµ¬í˜„
 #define true 1
 #define false 0
 
-int INF = 1000000; // ¹«ÇÑ´ë °ª
+int INF = 1000000; // ë¬´í•œëŒ€ ê°’
 
-boolean visited[MAX_SIZE] = { false, }; // ¹æ¹®ÇÑ vertex¸¦ ÆÇº°ÇÏ´Â bool Å¸ÀÔ array
-int costFromStart[MAX_SIZE]; // start vertex·ÎºÎÅÍ ´Ù¸¥ vertex ±îÁöÀÇ cost¸¦ ÀúÀåÇÒ array
+boolean visited[MAX_SIZE] = { false, }; // ë°©ë¬¸í•œ vertexë¥¼ íŒë³„í•˜ëŠ” bool íƒ€ì… array
+int costFromStart[MAX_SIZE]; // start vertexë¡œë¶€í„° ë‹¤ë¥¸ vertex ê¹Œì§€ì˜ costë¥¼ ì €ì¥í•  array
 
-int getMinCostVertex(int* arr); // ¿¬°áµÈ vertex Áß¿¡ °¡Àå cost°¡ ÀÛÀº vertex ¸®ÅÏ
-void dijkstra(int v, int arr[MAX_SIZE][MAX_SIZE]); // ÃÖ¼Ò cost °è»ê(´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò)
-void printResult(); // °á°ú Ãâ·Â
+int getMinCostVertex(int* arr); // ì—°ê²°ëœ vertex ì¤‘ì— ê°€ì¥ costê°€ ì‘ì€ vertex ë¦¬í„´
+void dijkstra(int v, int arr[MAX_SIZE][MAX_SIZE]); // ìµœì†Œ cost ê³„ì‚°(ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜)
+void printResult(); // ê²°ê³¼ ì¶œë ¥
 
 int main() {
 
-	int start; // ½ÃÀÛ vertex
+	int start; // ì‹œì‘ vertex
 
 	int graph[MAX_SIZE][MAX_SIZE] = {
 		{ 0, 3, INF, INF, 2, INF, INF, INF, INF, INF, INF, INF, INF, INF, INF, INF },
@@ -38,18 +38,18 @@ int main() {
 		{ INF, INF, INF, INF, INF, INF, INF, INF, INF, INF, INF, 4, INF, INF, 7, 0 }
 	};
 
-	printf("Ãâ¹ßÁö¸¦ ¼±ÅÃÇÏ¼¼¿ä : ");
+	printf("ì¶œë°œì§€ë¥¼ ì„ íƒí•˜ì„¸ìš” : ");
 
 	scanf_s("%d", &start);
 
-	dijkstra(start, graph); // ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò ½ÇÇà
+	dijkstra(start, graph); // ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜ ì‹¤í–‰
 
-	printResult(); // °á°ú Ãâ·Â
+	printResult(); // ê²°ê³¼ ì¶œë ¥
 
 	return 0;
 }
 
-int getMinCostVertex(int* arr) { // ¿¬°áµÈ vertex Áß¿¡ °¡Àå cost°¡ ÀÛÀº vertex ¸®ÅÏ
+int getMinCostVertex(int* arr) { // ì—°ê²°ëœ vertex ì¤‘ì— ê°€ì¥ costê°€ ì‘ì€ vertex ë¦¬í„´
 
 	int min = 9999;
 
@@ -58,7 +58,7 @@ int getMinCostVertex(int* arr) { // ¿¬°áµÈ vertex Áß¿¡ °¡Àå cost°¡ ÀÛÀº vertex ¸
 
 	for (int i = 0; i < MAX_SIZE; i++) {
 
-		if (costFromStart[i] < min && visited[i] == false) { // start vertex¿¡¼­ ¹æ¹®ÇÏÁö ¾ÊÀº vertex Áß¿¡ cost°¡ °¡Àå ÀÛÀº vertex idx ÀúÀå
+		if (costFromStart[i] < min && visited[i] == false) { // start vertexì—ì„œ ë°©ë¬¸í•˜ì§€ ì•Šì€ vertex ì¤‘ì— costê°€ ê°€ì¥ ì‘ì€ vertex idx ì €ì¥
 
 			min = costFromStart[i];
 			idx = i;
@@ -70,42 +70,42 @@ int getMinCostVertex(int* arr) { // ¿¬°áµÈ vertex Áß¿¡ °¡Àå cost°¡ ÀÛÀº vertex ¸
 	return vertex_idx;
 }
 
-void dijkstra(int v, int arr[MAX_SIZE][MAX_SIZE]) { // ÃÖ´Ü °æ·Î ¹× cost Ã£±â(´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò)
+void dijkstra(int v, int arr[MAX_SIZE][MAX_SIZE]) { // ìµœë‹¨ ê²½ë¡œ ë° cost ì°¾ê¸°(ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜)
 
-	int minVertex; //  getMinCostVertex ¸®ÅÏ °ª ÀúÀå
-	int passThrough; // °ÅÃÄ°¡´Â °æ¿ìÀÇ cost °ª
+	int minVertex; //  getMinCostVertex ë¦¬í„´ ê°’ ì €ì¥
+	int passThrough; // ê±°ì³ê°€ëŠ” ê²½ìš°ì˜ cost ê°’
 
-	for (int i = 0; i < MAX_SIZE; i++) { // start vertex¿¡¼­ ´Ù¸¥ vertex±îÁöÀÇ cost ÃÊ±âÈ­
+	for (int i = 0; i < MAX_SIZE; i++) { // start vertexì—ì„œ ë‹¤ë¥¸ vertexê¹Œì§€ì˜ cost ì´ˆê¸°í™”
 
 		costFromStart[i] = arr[v - 1][i];
 	}
 
-	visited[v - 1] = true; // ÀÚ±â ÀÚ½ÅÀÇ vertex´Â ¹æ¹®ÇÑ °ÍÀ¸·Î Ã³¸®
+	visited[v - 1] = true; // ìê¸° ìì‹ ì˜ vertexëŠ” ë°©ë¬¸í•œ ê²ƒìœ¼ë¡œ ì²˜ë¦¬
 
-	for (int i = 0; i < MAX_SIZE - 1; i++) { // ´Ù¸¥ vertex¸¦ ÇÏ³ª¾¿ ¹æ¹®
+	for (int i = 0; i < MAX_SIZE - 1; i++) { // ë‹¤ë¥¸ vertexë¥¼ í•˜ë‚˜ì”© ë°©ë¬¸
 
-		minVertex = getMinCostVertex(arr[v - 1]); // start·Î ºÎÅÍ cost°¡ °¡Àå ÀÛÀº vertex ±¸ÇÏ±â
-		visited[minVertex - 1] = true; // start·Î ºÎÅÍ cost°¡ °¡Àå ÀÛÀº vertex ¹æ¹®
+		minVertex = getMinCostVertex(arr[v - 1]); // startë¡œ ë¶€í„° costê°€ ê°€ì¥ ì‘ì€ vertex êµ¬í•˜ê¸°
+		visited[minVertex - 1] = true; // startë¡œ ë¶€í„° costê°€ ê°€ì¥ ì‘ì€ vertex ë°©ë¬¸
 
-		for (int j = 0; j < MAX_SIZE; j++) { // start·Î ºÎÅÍ ´Ù¸¥ vertex¸¦ °ÅÃÄ°¡´Â °æ¿ìÀÇ cost °ª °è»ê
+		for (int j = 0; j < MAX_SIZE; j++) { // startë¡œ ë¶€í„° ë‹¤ë¥¸ vertexë¥¼ ê±°ì³ê°€ëŠ” ê²½ìš°ì˜ cost ê°’ ê³„ì‚°
 
-			passThrough = costFromStart[minVertex - 1] + arr[minVertex - 1][j]; // start·Î ºÎÅÍ ´Ù¸¥ vertex¸¦ °ÅÃÄ°¡´Â °æ¿ìÀÇ cost °ª ÀúÀå
+			passThrough = costFromStart[minVertex - 1] + arr[minVertex - 1][j]; // startë¡œ ë¶€í„° ë‹¤ë¥¸ vertexë¥¼ ê±°ì³ê°€ëŠ” ê²½ìš°ì˜ cost ê°’ ì €ì¥
 
-			if (visited[j] == false) { // ¹æ¹®ÇÏÁö ¾ÊÀº vertexÀÎµ¥
+			if (visited[j] == false) { // ë°©ë¬¸í•˜ì§€ ì•Šì€ vertexì¸ë°
 
-				if (passThrough < costFromStart[j]) { // // ´Ù¸¥ vertex¸¦ °ÅÃÄ°¡´Â °æ¿ìÀÇ cost °ªÀÌ ´õ ÀÛ´Ù¸é
+				if (passThrough < costFromStart[j]) { // // ë‹¤ë¥¸ vertexë¥¼ ê±°ì³ê°€ëŠ” ê²½ìš°ì˜ cost ê°’ì´ ë” ì‘ë‹¤ë©´
 
-					costFromStart[j] = passThrough; // ´õ ÀÛÀº cost °ªÀ¸·Î °»½Å
+					costFromStart[j] = passThrough; // ë” ì‘ì€ cost ê°’ìœ¼ë¡œ ê°±ì‹ 
 				}
 			}
 		}
 	}
 }
 
-void printResult() { // °á°ú Ãâ·Â
+void printResult() { // ê²°ê³¼ ì¶œë ¥
 
-	for (int i = 0; i < MAX_SIZE - 1; i++) {
+	for (int i = 0; i < MAX_SIZE; i++) {
 
-		printf("Á¤Á¡ %2d±îÁö : %2d\n", i, costFromStart[i]);
+		printf("ì •ì  %2dê¹Œì§€ : %2d\n", i+1, costFromStart[i]);
 	}
 }
