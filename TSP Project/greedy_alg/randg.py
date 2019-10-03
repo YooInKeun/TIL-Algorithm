@@ -2,7 +2,7 @@ from galg import galg
 import random
 import math
 
-class randhc(galg):
+class randg(galg):
     def __init__(self, path):
         self.filepath = path
         self.coords = []
