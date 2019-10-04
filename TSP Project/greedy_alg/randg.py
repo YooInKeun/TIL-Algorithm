@@ -36,11 +36,12 @@ class randg(galg):
         # random.shuffle(self.coords) # 출발지 랜덤(나중에 가장 빠른 출발지 지정하자)
 
     def _calcCost(self):
-        
-        for i in range(1, len(self.coords)):
-            current_length = math.inf
 
-            for j in range(len(self.coords) - 1):
+        for i in range(1, 10):
+            current_length = math.inf
+            # calc_dist_cnt = 0
+
+            for j in range(0, len(self.coords) - 1):
                 for k in range(j+1, len(self.coords)):
                     if(current_length > self._calcEuclidDist(self.coords[j], self.coords[k])):
                         current_length = self._calcEuclidDist(self.coords[j], self.coords[k])
@@ -49,10 +50,12 @@ class randg(galg):
                         self.coords[k] = tmp
                         
                 self.cost += self._calcEuclidDist(self.coords[j], self.coords[j+1])
+                # calc_dist_cnt += 1
                 current_length = math.inf
                 # print('현재 좌표: ' + str(self.coords[j]), ', ' + '방문 좌표: ' + str(self.coords[j+1]))
-                
+
             print('현재 cost: ' + str(self.cost))
+            # print('거리 계산 횟수: ' + str(calc_dist_cnt))
             self.visited_number += 1
   
             if(self.min_cost > self.cost):
@@ -67,6 +70,60 @@ class randg(galg):
             tmp = self.coords[0]
             self.coords[0] = self.coords[i]
             self.coords[i] = tmp
+
+            if(i != len(self.coords) - 1):
+                tmp2 = self.coords[1]
+                self.coords[1] = self.coords[i+1]
+                self.coords[i+1] = tmp2
+            else:
+                tmp3 = self.coords[1]
+                self.coords[1] = self.coords[i]
+                self.coords[i] = tmp3
+
+            self.cost = 0
+
+        for i in range(len(self.coords)-10, len(self.coords)):
+            current_length = math.inf
+            # calc_dist_cnt = 0
+
+            for j in range(0, len(self.coords) - 1):
+                for k in range(j+1, len(self.coords)):
+                    if(current_length > self._calcEuclidDist(self.coords[j], self.coords[k])):
+                        current_length = self._calcEuclidDist(self.coords[j], self.coords[k])
+                        tmp = self.coords[j+1]
+                        self.coords[j+1] = self.coords[k]
+                        self.coords[k] = tmp
+                        
+                self.cost += self._calcEuclidDist(self.coords[j], self.coords[j+1])
+                # calc_dist_cnt += 1
+                current_length = math.inf
+                # print('현재 좌표: ' + str(self.coords[j]), ', ' + '방문 좌표: ' + str(self.coords[j+1]))
+
+            print('현재 cost: ' + str(self.cost))
+            # print('거리 계산 횟수: ' + str(calc_dist_cnt))
+            self.visited_number += 1
+  
+            if(self.min_cost > self.cost):
+                self.min_cost = self.cost
+                self.min_start = i
+                self.min_path = self.coords
+                print('\n' + '지금까지의 최소 cost : ' + str(self.min_cost))
+                print('출발지 위치: ' + str(self.min_start) + '\n')
+            
+            self._initPath()
+
+            tmp = self.coords[0]
+            self.coords[0] = self.coords[i]
+            self.coords[i] = tmp
+
+            if(i != len(self.coords) - 1):
+                tmp2 = self.coords[1]
+                self.coords[1] = self.coords[i+1]
+                self.coords[i+1] = tmp2
+            else:
+                tmp3 = self.coords[1]
+                self.coords[1] = self.coords[i]
+                self.coords[i] = tmp3
 
             self.cost = 0
 
