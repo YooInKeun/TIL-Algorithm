@@ -36,10 +36,10 @@ class randg(galg):
         # random.shuffle(self.coords) # 출발지 랜덤(나중에 가장 빠른 출발지 지정하자)
 
     def _calcCost(self):
+        calc_cnt = 0
 
-        for i in range(1, 10):
+        for i in range(1, 11):
             current_length = math.inf
-            # calc_dist_cnt = 0
 
             for j in range(0, len(self.coords) - 1):
                 for k in range(j+1, len(self.coords)):
@@ -50,12 +50,13 @@ class randg(galg):
                         self.coords[k] = tmp
                         
                 self.cost += self._calcEuclidDist(self.coords[j], self.coords[j+1])
-                # calc_dist_cnt += 1
+                # print('거리 계산 값: ' + str(self._calcEuclidDist(self.coords[j], self.coords[j+1])))
+                calc_cnt += 1
                 current_length = math.inf
                 # print('현재 좌표: ' + str(self.coords[j]), ', ' + '방문 좌표: ' + str(self.coords[j+1]))
 
             print('현재 cost: ' + str(self.cost))
-            # print('거리 계산 횟수: ' + str(calc_dist_cnt))
+            # print('거리 계산 횟수: ' + str(calc_cnt))
             self.visited_number += 1
   
             if(self.min_cost > self.cost):
@@ -66,25 +67,16 @@ class randg(galg):
                 print('출발지 위치: ' + str(self.min_start) + '\n')
             
             self._initPath()
+            calc_cnt = 0
 
             tmp = self.coords[0]
             self.coords[0] = self.coords[i]
             self.coords[i] = tmp
-
-            if(i != len(self.coords) - 1):
-                tmp2 = self.coords[1]
-                self.coords[1] = self.coords[i+1]
-                self.coords[i+1] = tmp2
-            else:
-                tmp3 = self.coords[1]
-                self.coords[1] = self.coords[i]
-                self.coords[i] = tmp3
 
             self.cost = 0
 
-        for i in range(len(self.coords)-10, len(self.coords)):
+        for i in range(len(self.coords)-10, len(self.coords) + 1): # 마지막 인덱스 위치를 시작점으로 해보기 위해 마지막 i값은 len(self.coords)
             current_length = math.inf
-            # calc_dist_cnt = 0
 
             for j in range(0, len(self.coords) - 1):
                 for k in range(j+1, len(self.coords)):
@@ -95,12 +87,13 @@ class randg(galg):
                         self.coords[k] = tmp
                         
                 self.cost += self._calcEuclidDist(self.coords[j], self.coords[j+1])
-                # calc_dist_cnt += 1
+                # print('거리 계산 값: ' + str(self._calcEuclidDist(self.coords[j], self.coords[j+1])))
+                calc_cnt += 1
                 current_length = math.inf
                 # print('현재 좌표: ' + str(self.coords[j]), ', ' + '방문 좌표: ' + str(self.coords[j+1]))
 
             print('현재 cost: ' + str(self.cost))
-            # print('거리 계산 횟수: ' + str(calc_dist_cnt))
+            # print('거리 계산 횟수: ' + str(calc_cnt))
             self.visited_number += 1
   
             if(self.min_cost > self.cost):
@@ -111,19 +104,12 @@ class randg(galg):
                 print('출발지 위치: ' + str(self.min_start) + '\n')
             
             self._initPath()
+            calc_cnt = 0
 
-            tmp = self.coords[0]
-            self.coords[0] = self.coords[i]
-            self.coords[i] = tmp
-
-            if(i != len(self.coords) - 1):
-                tmp2 = self.coords[1]
-                self.coords[1] = self.coords[i+1]
-                self.coords[i+1] = tmp2
-            else:
-                tmp3 = self.coords[1]
-                self.coords[1] = self.coords[i]
-                self.coords[i] = tmp3
+            if(i != len(self.coords)): # 마지막 인덱스일 때 예외처리
+                tmp = self.coords[0]
+                self.coords[0] = self.coords[i]
+                self.coords[i] = tmp
 
             self.cost = 0
 
